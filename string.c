@@ -52,7 +52,7 @@ int _strncmp(char *s1, char *s2, int n)
 	}
 	else
 	{
-		return (s1[i] - s2[i])
+		return (s1[i] - s2[i]);
 	}
 	if (i == n && s1[i] == ' ' || s1[i] == '\t' || s1[i] == '\0' || s1[i] == '\n')
 		return (0);

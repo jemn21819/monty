@@ -55,4 +55,11 @@ char *skipSpaces(char *s);
 /* Searches for a number inside a string */
 int *searchNumber(char *s);
 
+/* Monty code functions */
+/* Prints all elements in a stack */
+void pall(stack_t **head, unsigned int line_num);
+
+/* Pushes elements into the top of the stack */
+void push(stack_t **head, char *line, unsigned int line_num);
+
 #endif

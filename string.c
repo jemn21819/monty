@@ -56,7 +56,8 @@ int _strncmp(char *s1, char *s2, int n)
 			return (s1[i] - s2[i]);
 		}
 	}
-	if (i == n && (s1[i] == ' ' || s1[i] == '\t' || s1[i] == '\0' || s1[i] == '\n'))
+	if (i == n && (s1[i] == ' ' || s1[i] == '\t' ||
+				s1[i] == '\0' || s1[i] == '\n'))
 		return (0);
 	return (EXIT_FAILURE);
 }
@@ -82,7 +83,7 @@ char *skipSpaces(char *s)
 }
 
 /**
- * findNumber - finds a number in a string
+ * searchNumber - finds a number in a string
  * @s: string to be searched
  * Return: string with numbers || NULL if failed
  */

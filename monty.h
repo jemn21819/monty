@@ -40,6 +40,7 @@ int main(int ac, char **av);
 void free_stk(stack_t *head);
 stack_t *add_node(stack_t **head, const int n);
 void exec(stack_t **head, char *line, unsigned int line_num);
+int get_arg(stack_t **head, char *opcode, unsigned int line_num);
 
 /* String handlers */
 /* Gets the length of a string */
@@ -69,5 +70,15 @@ void pint(stack_t **head, unsigned int line_num);
 
 /* Removes element on top of the stack */
 void pop(stack_t **head, unsigned int line_num);
+
+/* nop ocode doesnt do anything */
+void nop(stack_t **head, unsigned int line_num);
+
+/* mathematical fucntion */
+void add(stack_t **head, unsigned int line_num);
+void sub(stack_t **head, unsigned int line_num);
+void mul(stack_t **head, unsigned int line_num);
+void _div(stack_t **head, unsigned int line_num);
+void mod(stack_t **head, unsigned int line_num);
 
 #endif

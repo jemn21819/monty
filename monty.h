@@ -36,9 +36,10 @@ typedef struct instruction_s
 
 
 /* Monty helper functions */
-int main(int ac, int **av);
+int main(int ac, char **av);
 void free_stk(stack_t *head);
-stack_t add_node(stack_t **head, const int n);
+stack_t *add_node(stack_t **head, const int n);
+void exec(stack_t **head, char *line, unsigned int line_num);
 
 /* String handlers */
 /* Gets the length of a string */
@@ -54,7 +55,7 @@ int _strncmp(char *s1, char *s2, int n);
 char *skipSpaces(char *s);
 
 /* Searches for a number inside a string */
-int *searchNumber(char *s);
+char *searchNumber(char *s);
 
 /* Monty code functions */
 /* Prints all elements in a stack */

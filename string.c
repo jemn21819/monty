@@ -48,13 +48,15 @@ int _strncmp(char *s1, char *s2, int n)
 	while (s1[i] != '\0' && s2[i] != '\0' && i < n)
 	{
 		if (s1[i] == s2[i])
+		{
 			++i;
+		}
+		else
+		{
+			return (s1[i] - s2[i]);
+		}
 	}
-	else
-	{
-		return (s1[i] - s2[i]);
-	}
-	if (i == n && s1[i] == ' ' || s1[i] == '\t' || s1[i] == '\0' || s1[i] == '\n')
+	if (i == n && (s1[i] == ' ' || s1[i] == '\t' || s1[i] == '\0' || s1[i] == '\n'))
 		return (0);
 	return (EXIT_FAILURE);
 }
@@ -84,7 +86,7 @@ char *skipSpaces(char *s)
  * @s: string to be searched
  * Return: string with numbers || NULL if failed
  */
-char *findNumber(char *s)
+char *searchNumber(char *s)
 {
 	if (!s)
 		return (NULL);

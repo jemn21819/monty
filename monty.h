@@ -38,6 +38,7 @@ typedef struct instruction_s
 /* Monty helper functions */
 int main(int ac, int **av);
 void free_stk(stack_t *head);
+stack_t add_node(stack_t **head, const int n);
 
 /* String handlers */
 /* Gets the length of a string */

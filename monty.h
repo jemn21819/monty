@@ -63,4 +63,10 @@ void pall(stack_t **head, unsigned int line_num);
 /* Pushes elements into the top of the stack */
 void push(stack_t **head, char *line, unsigned int line_num);
 
+/* Prints element on top of the stack */
+void pint(stack_t **head, unsigned int line_num);
+
+/* Removes element on top of the stack */
+void pop(stack_t **head, unsigned int line_num);
+
 #endif

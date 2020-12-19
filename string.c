@@ -25,11 +25,10 @@ int _strlen(char *str)
  */
 int _strcmp(char *s1, char *s2)
 {
-	int count = 0;
-
-	while (s1[count] == s2[count] && s1 != '\0')
+	while (*s1 == *s2 && *s1 != '\0' && *s2 != '\0')
 	{
-		count++;
+		++s1;
+		++s2;
 	}
 	return (*s1 - *s2);
 }
@@ -44,15 +43,53 @@ int _strcmp(char *s1, char *s2)
  */
 int _strncmp(char *s1, char *s2, int n)
 {
-	int count = 0;
-
 	while (n > 0)
 	{
-		if (s1[count] != s2[count])
+		if (*s1 != *s2)
 		{
 			return (*s1 - *s2);
 		}
-		count++;
+		++s1;
+		++s2;
+		n--;
 	}
 	return (0);
+}
+
+/**
+ * skipSpaces - skips whitespaces
+ * @s: string to check
+ * Return: string withouth spaces
+ */
+char *skipSpaces(char *s)
+{
+	if (!s)
+		return (NULL);
+
+	while (*s && *s == ' ')
+	{
+		++s;
+	}
+	if (*s == '\0')
+		return (NULL);
+
+	return (s);
+}
+
+/**
+ * findNumber - finds a number in a string
+ * @s: string to be searched
+ * Return: string with numbers || NULL if failed
+ */
+char *findNumber(char *s)
+{
+	if (!s)
+		return (NULL);
+
+	while (*s && (*s < '0' || *s > 9))
+		++s;
+	if (*s == '\0')
+		return (NULL);
+
+	return (s);
 }

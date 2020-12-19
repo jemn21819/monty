@@ -47,4 +47,10 @@ int _strcmp(char *s1, char *s2);
 /* Comapres 2 strings up to n chars */
 int _strncmp(char *s1, char *s2, int n);
 
+/* Skips white spaces */
+char *skipSpaces(char *s);
+
+/* Searches for a number inside a string */
+int *searchNumber(char *s);
+
 #endif

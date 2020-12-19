@@ -1,4 +1,4 @@
-#include "str_hdr.h"
+#include "monty.h"
 
 /**
  * _strlen - finds length of a string

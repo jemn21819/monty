@@ -58,7 +58,7 @@ ssize_t _getline(char **buf, size_t *size, int file_strm)
 	if (!*buf)
 	{
 		*size = BUFF_LEN;
-		*buf = malloc(*size * sizeof(char));
+		*buf = malloc(*size * sizeof(char *) * 2);
 		if (*buf == NULL)
 			return (-1);
 	}

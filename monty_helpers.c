@@ -2,19 +2,61 @@
 
 /**
  * free_stk - free a double l-list
- * @head: pointer to double l-list
+ * @status: exit status
+ * @line: pointer to double l-list
  */
 
-void free_stk(stack_t *head)
+void free_stk(int status, void *line)
 {
-	stack_t *tmp;
+	stack_t **head;
+	stack_t *next;
+	(void)status;
 
-	while (head != NULL)
+	head = (stack_t **)line;
+	if (*head)
 	{
-		tmp = head;
-		head = head->next;
-		free(tmp);
+		(*head)->prev->next = NULL;
+		(*head)->prev = NULL;
 	}
+	while (*head != NULL)
+	{
+		next = (*head)->next;
+		free(*head);
+		*head = next;
+	}
+	var.head_len = 0;
+}
+
+/**
+ * fs_close - close file stream
+ * @status: status passed to exit
+ * @line: pointer to file stream
+ */
+
+void fs_close(int status, void *line)
+{
+	FILE *fs;
+
+	(void)status;
+
+	fs = (FILE *) line;
+	fclose(fs);
+}
+
+/**
+ * free_lineptr - free line pointer returned by getline
+ * @status: exit status
+ * @line: pointer to line
+ *
+ * Return: void
+ */
+void free_lineptr(int status, void *line)
+{
+	char **lineptr = line;
+
+	(void)status;
+	if (*lineptr != NULL)
+		free(*lineptr);
 }
 
 /**
@@ -30,99 +72,23 @@ stack_t *add_node(stack_t **head, const int n)
 
 	if (head == NULL)
 		return (NULL);
-
 	new = malloc(sizeof(stack_t));
 	if (new == NULL)
 		return (NULL);
-
 	new->n = n;
-	new->prev = NULL;
-	new->next = *head;
-
-	if (*head)
+	if (*head == NULL)
+	{
+		new->prev = new;
+		new->next = new;
+	}
+	else
+	{
+		(*head)->prev->next = new;
+		new->prev = (*head)->prev;
 		(*head)->prev = new;
-	*head = new;
-	return (new);
-}
-
-/**
- * add_node_end - add node at the end of double l-list
- * @head: pointer to doble l-list
- * @n: element to insert
- * Return: address of node or NULL
- */
-
-stack_t *add_node_end(stack_t **head, int n)
-{
-	stack_t *new, *tmp;
-
-	if (!head)
-		return (NULL);
-	new = malloc(sizeof(stack_t));
-	if (!new)
-		return (NULL);
-
-	new->n = n;
-	new->next = NULL;
-
-	if (*head)
-	{
-		for (tmp = *head; tmp->next;)
-			tmp = tmp->next;
-		new->prev = tmp;
-		tmp->next = new;
+		new->next = *head;
 	}
-	else
-	{
-		new->prev = NULL;
+	if (var.queue == STACK || var.head_len == 0)
 		*head = new;
-	}
 	return (new);
-}
-
-/**
- * pop_start - return the node at beninning
- * @head: pointer to double l-l
- * Return: pointer to node or NULL
- */
-
-stack_t *pop_start(stack_t **head)
-{
-	stack_t *tmp;
-
-	if (!head || !*head)
-		return (NULL);
-
-	tmp = *head;
-	*head = (*head)->next;
-
-	if (*head)
-		(*head)->prev = NULL;
-
-	return (tmp);
-}
-
-/**
- * dequeue - return the node at the end
- * @head: pointer to double l-list
- * Return: pointer to node or NULL
- */
-
-stack_t *dequeue(stack_t **head)
-{
-	stack_t *h;
-
-	if (!head || !*head)
-		return (NULL);
-
-	h = *head;
-	while (h->next != NULL)
-		h = h->next;
-
-	if (h->prev)
-		(h->prev)->next = NULL;
-	else
-		*head = NULL;
-
-	return (h);
 }

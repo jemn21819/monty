@@ -8,26 +8,27 @@
 
 void swap(stack_t **head, unsigned int line_num)
 {
-	int x;
+	stack_t *next;
 
-	if (!head || !*head)
+	if (var.head_len < 2)
 	{
-		fprintf(stderr, "L%d: can't swap, %s too short\n", line_num, flag);
-		free_stk(*head);
+		fprintf(stderr, "L%u: can't swap, stack too short\n", line_num);
 		exit(EXIT_FAILURE);
 	}
-
-	x = (*head)->n;
-	if ((*head)->next == NULL)
+	if (var.head_len == 2)
 	{
-		fprintf(stderr, "L%d: can't swap, %s too short\n", line_num, flag);
-		free_stk(*head);
-		exit(EXIT_FAILURE);
+		*head = (*head)->next;
+		return;
 	}
-	(*head)->n = ((*head)->next)->n;
-	((*head)->next)->n = x;
+	next = (*head)->next;
+	next->prev = (*head)->prev;
+	(*head)->prev->next = next;
+	(*head)->prev = next;
+	(*head)->next = next->next;
+	next->next->prev = *head;
+	next->next = *head;
+	*head = next;
 }
-
 /**
  * rotl - rotates the stack to the top.
  * @head: pointer double l-list
@@ -36,22 +37,10 @@ void swap(stack_t **head, unsigned int line_num)
 
 void rotl(stack_t **head, unsigned int line_num)
 {
-	stack_t *node, *tmp;
+	(void)line_num;
 
-	(void) line_num;
-
-	if (!head || !*head)
-		return;
-	if (!(*head)->next)
-		return;
-	node = pop_start(head);
-	node->next = NULL;
-
-	tmp = *head;
-	while (tmp->next)
-		tmp = tmp->next;
-	tmp->next = node;
-	node->prev = tmp;
+	if (*head)
+		*head = (*head)->next;
 }
 
 /**
@@ -62,18 +51,8 @@ void rotl(stack_t **head, unsigned int line_num)
 
 void rotr(stack_t **head, unsigned int line_num)
 {
-	stack_t *node;
-
 	(void)line_num;
 
-	if (!head || !*head)
-		return;
-	if (!(*head)->next)
-		return;
-	node = dequeue(head);
-	node->prev = NULL;
-
-	node->next = *head;
-	(*head)->prev = node;
-	*head = node;
+	if (*head)
+		*head = (*head)->prev;
 }

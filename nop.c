@@ -6,9 +6,10 @@
  * @line_num: line number
  */
 
-void nop(stack_t **head, __attribute__((unused))unsigned int line_num)
+void nop(stack_t **head, unsigned int line_num)
 {
 	(void)head;
+	(void)line_num;
 }
 
 /**
@@ -21,7 +22,7 @@ void queue(stack_t **head, unsigned int line_num)
 	(void)head;
 	(void)line_num;
 
-	flag = "queue";
+	var.queue = QUEUE;
 }
 
 
@@ -35,5 +36,5 @@ void stack(stack_t **head, unsigned int line_num)
 	(void)head;
 	(void)line_num;
 
-	flag = "stack";
+	var.queue = STACK;
 }

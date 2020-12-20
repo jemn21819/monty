@@ -9,16 +9,19 @@
 
 void pall(stack_t **head, unsigned int line_num)
 {
-	stack_t *h;
-	(void)line_num;
+	stack_t *stack;
 
-	h = *head;
-	if (h == NULL)
-		return;
-	while (h)
+	(void)(line_num);
+
+	stack = *head;
+	while (stack != NULL)
 	{
-		printf("%d\n", h->n);
-		h = h->next;
+		printf("%d\n", stack->n);
+		stack = stack->next;
+		if (stack == *head)
+		{
+			return;
+		}
 	}
 }
 
@@ -30,15 +33,15 @@ void pall(stack_t **head, unsigned int line_num)
  */
 void pint(stack_t **head, unsigned int line_num)
 {
-	if (head == NULL || *head == NULL)
+	stack_t *stack = *head;
+
+	if (var.head_len == 0)
 	{
-		fprintf(stderr, "L%d: can't pint, stack empty\n", line_num);
-		free_stk(*head);
+		fprintf(stderr, "L%u: can't pint, stack empty\n", line_num);
 		exit(EXIT_FAILURE);
 	}
-	printf("%d\n", (*head)->n);
+	printf("%d\n", stack->n);
 }
-
 /**
  * pchar - prints the char at the top of the stack.
  * @head: pointer to double l-list
@@ -47,26 +50,21 @@ void pint(stack_t **head, unsigned int line_num)
 
 void pchar(stack_t **head, unsigned int line_num)
 {
-	int letter;
+	int ch;
 
-	if (!head || !*head)
+	if (var.head_len < 1)
 	{
-		fprintf(stderr, "L%d: can't pchar, stack empty\n", line_num);
-		free_stk(*head);
+		fprintf(stderr, "L%u: can't pchar, stack empty\n", line_num);
 		exit(EXIT_FAILURE);
 	}
-
-	letter = (*head)->n;
-	if (letter < 0 || letter > 127)
+	ch = (*head)->n;
+	if (!isascii(ch))
 	{
-		fprintf(stderr, "L%d: can't pchar, value out of range\n", line_num);
-		free_stk(*head);
+		fprintf(stderr, "L%u: can't pchar, value out of range\n", line_num);
 		exit(EXIT_FAILURE);
 	}
-	else
-		printf("%c\n", letter);
+	printf("%c\n", ch);
 }
-
 /**
  * pstr - prints the string starting at the top of the stack
  * @head: pointer to double l-list
@@ -75,17 +73,21 @@ void pchar(stack_t **head, unsigned int line_num)
 
 void pstr(stack_t **head, unsigned int line_num)
 {
-	stack_t *h;
-	(void) line_num;
+	stack_t *temp;
+	int ch;
 
-	if (head != NULL)
+	(void)line_num;
+
+	temp = *head;
+	while (temp != NULL)
 	{
-		h = *head;
-		while (h != NULL && h->n > 0 && h->n < 127)
-		{
-			printf("%c", h->n);
-			h = h->next;
-		}
+		ch = temp->n;
+		if (!isascii(ch) || ch == 0)
+			break;
+		putchar(ch);
+		temp = temp->next;
+		if (temp == *head)
+			break;
 	}
-	printf("\n");
+	putchar('\n');
 }

@@ -8,67 +8,40 @@
  * Return: 0, 1 or -1
  */
 
-int exec(stack_t **head, char *line, unsigned int line_num)
+void exec(char *line, stack_t **head, unsigned int line_num)
 {
+	size_t i;
 	instruction_t ops[] = {
-		{"pall", pall}, {"pint", pint}, {"nop", nop},
-		{"swap", swap}, {"add", add}, {"pop", pop},
-		{"sub", sub}, {"div", _div}, {"pchar", pchar},
-		{"mul", mul}, {"mod", mod}, {"pstr", pstr}, {"queue", queue},
-		{"rotl", rotl}, {"rotr", rotr}, {"stack", stack}, {NULL, NULL}
+		{"push", push},
+		{"pall", pall},
+		{"pint", pint},
+		{"pop", pop},
+		{"swap", swap},
+		{"add", add},
+		{"nop", nop},
+		{"sub", sub},
+		{"mul", mul},
+		{"div", _div},
+		{"mod", mod},
+		{"rotl", rotl},
+		{"rotr", rotr},
+		{"stack", stack},
+		{"queue", queue},
+		{"pchar", pchar},
+		{"pstr", pstr},
+		{NULL, NULL}
 	};
-	int i, push_back;
-	char *first_c;
 
-	first_c = skipSpaces(line);
-	if (!first_c)
+	for (i = 0; ops[i].opcode != NULL; i++)
 	{
-		free(line);
-		return (1);
-	}
-	if (_strncmp(first_c, "push", _strlen("push")) == 0)
-	{
-		push_back = push(head, line, line_num);
-		return ((push_back == 0) ? 0 : -1);
-	}
-	for (i = 0; ops[i].opcode; ++i)
-	{
-		if (_strncmp(first_c, ops[i].opcode, _strlen(ops[i].opcode)) == 0)
+		if (strcmp(ops[i].opcode, line) == 0)
 		{
-			free(line), (ops[i].f)(head, line_num);
-			return (0);
+			ops[i].f(head, line_num);
+			return;
 		}
 	}
-	fprintf(stderr, "L%d: unknown instruction %s\n", line_num, line);
-	while (*first_c && (*first_c != ' ' && *first_c != '\t'))
-		putchar(*first_c++);
-	free(line);
-	return (-1);
+
+	fprintf(stderr, "L%u: unknown instruction %s\n", line_num, line);
+	exit(EXIT_FAILURE);
 }
-
-/**
- * get_arg - et arg form math operations
- * @head: pointer to double l-list
- * @opcode: opcode string
- * @line_num: line number
- * Return: argument
- */
-int get_arg(stack_t **head, char *opcode, unsigned int line_num)
-{
-	stack_t *node;
-	int tmp;
-
-	node = pop_start(head);
-
-	if (node == NULL)
-	{
-		fprintf(stderr, "L%d: can't %s, stack too short\n", line_num, opcode);
-		free_stk(*head);
-		exit(EXIT_FAILURE);
-	}
-	tmp = node->n;
-	free(node);
-	return (tmp);
-}
-
 

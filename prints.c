@@ -78,13 +78,14 @@ void pstr(stack_t **head, unsigned int line_num)
 	stack_t *h;
 	(void) line_num;
 
-	h = *head;
-	while (h)
+	if (head != NULL)
 	{
-		if (h->n > 0 && h->n < 127)
+		h = *head;
+		while (h != NULL && h->n > 0 && h->n < 127)
+		{
 			printf("%c", h->n);
-		else
 			h = h->next;
+		}
 	}
 	printf("\n");
 }

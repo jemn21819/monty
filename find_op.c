@@ -39,10 +39,10 @@ int exec(stack_t **head, char *line, unsigned int line_num)
 			return (0);
 		}
 	}
-	fprintf(stderr, "L%d: unknown instruction ", line_num);
+	fprintf(stderr, "L%d: unknown instruction\n", line_num);
 	while (*first_c && (*first_c != ' ' && *first_c != '\t'))
 		putchar(*first_c++);
-	putchar('\n');
+	printf("\n");
 	free(line);
 	return (-1);
 }

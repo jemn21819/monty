@@ -1,8 +1,15 @@
 #ifndef MONTY_H
 #define MONTY_H
+
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+
+#define BUFF_LEN 1024
+
 
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
@@ -34,13 +41,21 @@ typedef struct instruction_s
 	void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
+/* external variable */
+extern char *flag;
+
+void queue(stack_t **head, unsigned int line_num);
+void stack(stack_t **head, unsigned int line_num);
 
 /* Monty helper functions */
 int main(int ac, char **av);
 void free_stk(stack_t *head);
 stack_t *add_node(stack_t **head, const int n);
-void exec(stack_t **head, char *line, unsigned int line_num);
+int exec(stack_t **head, char *line, unsigned int line_num);
 int get_arg(stack_t **head, char *opcode, unsigned int line_num);
+stack_t *dequeue(stack_t **head);
+stack_t *pop_start(stack_t **head);
+stack_t *add_node_end(stack_t **head, int n);
 
 /* String handlers */
 /* Gets the length of a string */
@@ -63,7 +78,7 @@ char *searchNumber(char *s);
 void pall(stack_t **head, unsigned int line_num);
 
 /* Pushes elements into the top of the stack */
-void push(stack_t **head, char *line, unsigned int line_num);
+int push(stack_t **head, char *line, unsigned int line_num);
 
 /* Prints element on top of the stack */
 void pint(stack_t **head, unsigned int line_num);
@@ -83,6 +98,11 @@ void mod(stack_t **head, unsigned int line_num);
 
 /* moving functions */
 void swap(stack_t **head, unsigned int line_num);
+
+/* malloc and get line form stdinput */
+void flush_buffer(char *buffer, size_t size);
+void fill_buffer(char **buf, size_t *size, char c, size_t index);
+ssize_t _getline(char **buf, size_t *size, int file_strm);
 
 
 #endif

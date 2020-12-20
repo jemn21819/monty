@@ -5,34 +5,36 @@
  * @head: pointer to double l-list
  * @line: command
  * @line_num: line numbre in file
+ * Return: 0, 1 or -1
  */
 
-void exec(stack_t **head, char *line, unsigned int line_num)
+int exec(stack_t **head, char *line, unsigned int line_num)
 {
 	instruction_t ops[] = {
-		{"pall", pall},
-		{"pint", pint},
-		{"pop", pop},
+		{"pall", pall}, {"pint", pint}, {"nop", nop},
+		{"swap", swap},
 		{NULL, NULL}
 	};
-	int i;
+	int i, push_back;
 	char *first_c;
 
 	first_c = skipSpaces(line);
 	if (!first_c)
-		return;
+	{
+		free(line);
+		return (1);
+	}
 	if (_strncmp(first_c, "push", _strlen("push")) == 0)
 	{
-		push(head, line, line_num);
-		return;
+		push_back = push(head, line, line_num);
+		return ((push_back == 0) ? 0 : -1);
 	}
 	for (i = 0; ops[i].opcode; ++i)
 	{
 		if (_strncmp(first_c, ops[i].opcode, _strlen(ops[i].opcode)) == 0)
 		{
-			free(line);
-			(ops[i].f)(head, line_num);
-			return;
+			free(line), (ops[i].f)(head, line_num);
+			return (0);
 		}
 	}
 	printf("L%d: unknown instruction ", line_num);
@@ -40,7 +42,32 @@ void exec(stack_t **head, char *line, unsigned int line_num)
 		putchar(*first_c++);
 	putchar('\n');
 	free(line);
-	free_stk(*head);
-	*head = NULL;
-	exit(EXIT_FAILURE);
+	return (-1);
 }
+
+/**
+ * get_argument - et arg form math operations
+ * @head: pointer to double l-list
+ * @opcode: opcode string
+ * @line_num: line number
+ * Return: argument
+ */
+int get_argument(stack_t **head, char *opcode, unsigned int line_num)
+{
+	stack_t *node;
+	int tmp;
+
+	node = pop_start(head);
+
+	if (node == NULL)
+	{
+		printf("L%d: can't %s, stack too short\n", line_num, opcode);
+		free_stk(*head);
+		exit(EXIT_FAILURE);
+	}
+	tmp = node->n;
+	free(node);
+	return (tmp);
+}
+
+

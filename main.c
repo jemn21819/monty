@@ -1,5 +1,6 @@
 #include "monty.h"
 
+char *flag = "stack";
 /**
  * main - run monty program
  * @ac: argument counter
@@ -9,37 +10,42 @@
 
 int main(int ac, char **av)
 {
-	stack_t *h;
+	stack_t *head;
+	int exec_err, fp;
 	unsigned int line_num;
 	ssize_t status;
 	char *line;
 	size_t len;
-	FILE *fp;
 
 	if (ac != 2)
 	{
-		printf("USAGE: %s file\n", av[0]);
-		exit(EXIT_FAILURE);
+		printf("USAGE: %s file\n", av[0]), exit(EXIT_FAILURE);
 	}
-	h = NULL;
-	fp = fopen(av[1], "r");
-	if (!fp)
+	head = NULL;
+	fp = open(av[1], O_RDONLY);
+	if (fp == -1)
 	{
-		printf("Error: Can't open file %s\n", av[1]);
-		exit(EXIT_FAILURE);
+		printf("Error: Can't open file %s\n", av[1]), exit(EXIT_FAILURE);
 	}
 	line_num = 0;
 	do {
 		++line_num;
 		line =  NULL;
 		len = 0;
-		status = getline(&line, &len, fp);
-		if (status > 0)
-			exec(&h, line, line_num);
+		status = _getline(&line, &len, fp);
+		if (status > 2)
+		{
+			exec_err = exec(&head, line, line_num);
+			if (exec_err == -1)
+				status = -2;
+		}
 		else
 			free(line);
 	} while (status >= 0);
-	fclose(fp);
-	free_stk(h);
-	return (0);
+	close(fp);
+	free_stk(head);
+	head = NULL;
+	if (status == -1)
+		return (0);
+	exit(EXIT_FAILURE);
 }

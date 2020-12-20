@@ -18,8 +18,8 @@ int push(stack_t **head, char *line, unsigned int line_num)
 	{
 		fprintf(stderr, "L%d: usage: push integer\n", line_num);
 		free(line);
-		exit(EXIT_FAILURE);
-	};
+		return (-1);
+	}
 
 	if (_strcmp(flag, "stack") == 0)
 		node = add_node(head, atoi(first_n));
@@ -30,7 +30,7 @@ int push(stack_t **head, char *line, unsigned int line_num)
 	if (!node)
 	{
 		fprintf(stderr, "Error: malloc failed\n");
-		exit(EXIT_FAILURE);
+		return (-1);
 	}
 	return (0);
 }

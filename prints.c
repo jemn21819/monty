@@ -81,7 +81,7 @@ void pstr(stack_t **head, unsigned int line_num)
 	h = *head;
 	while (h)
 	{
-		if (h->n > 32 && h->n < 127)
+		if (h->n > 0 && h->n < 127)
 			printf("%c", h->n);
 		else
 			h = h->next;

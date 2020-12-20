@@ -27,8 +27,8 @@ void fill_buffer(char **buf, size_t *size, char c, size_t index)
 	char *p;
 
 	if (!buf || !size)
-		return; /*should exit really*/
-	if (index >= *size - 1) /*I need 2 free spots at this point*/
+		return;
+	if (index >= *size - 1)
 	{
 		*buf = realloc(*buf, *size * 2);
 		if (*buf == NULL)
@@ -68,8 +68,8 @@ ssize_t _getline(char **buf, size_t *size, int file_strm)
 	{
 		check_r = read(file_strm, &c, 1);
 		if (check_r == -1)
-			return (-1); /*buffer freed elsewhere*/
-		if (check_r == 0 && index == 0) /*EOF*/
+			return (-1);
+		if (check_r == 0 && index == 0)
 			return (-1);
 		if (c != EOF)
 		{

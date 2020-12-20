@@ -43,7 +43,6 @@ typedef struct instruction_s
 
 /* external variable */
 
-char *flag;
 
 extern char *flag;
 

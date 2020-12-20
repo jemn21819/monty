@@ -1,5 +1,6 @@
 #include "monty.h"
 
+char *flag = "stack";
 
 /**
  * main - run monty program

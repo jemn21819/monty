@@ -42,6 +42,9 @@ typedef struct instruction_s
 } instruction_t;
 
 /* external variable */
+
+char *flag;
+
 extern char *flag;
 
 void queue(stack_t **head, unsigned int line_num);
@@ -82,6 +85,8 @@ int push(stack_t **head, char *line, unsigned int line_num);
 
 /* Prints element on top of the stack */
 void pint(stack_t **head, unsigned int line_num);
+void pstr(stack_t **head, unsigned int line_num);
+void pchar(stack_t **head, unsigned int line_num);
 
 /* Removes element on top of the stack */
 void pop(stack_t **head, unsigned int line_num);
@@ -98,6 +103,8 @@ void mod(stack_t **head, unsigned int line_num);
 
 /* moving functions */
 void swap(stack_t **head, unsigned int line_num);
+void rotr(stack_t **head, unsigned int line_num);
+void rotl(stack_t **head, unsigned int line_num);
 
 /* malloc and get line form stdinput */
 void flush_buffer(char *buffer, size_t size);

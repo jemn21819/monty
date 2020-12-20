@@ -35,44 +35,6 @@ int push(stack_t **head, char *line, unsigned int line_num)
 	return (0);
 }
 
-/**
- * pall - prints all elents in a stack from top
- * @head: head of the stack
- * @line_num: number of lines
- * Return: no return for void function
- */
-
-void pall(stack_t **head, unsigned int line_num)
-{
-	stack_t *h;
-	(void)line_num;
-
-	if (head == NULL)
-		return;
-	h = *head;
-	while (h)
-	{
-		printf("%d\n", h->n);
-		h = h->next;
-	}
-}
-
-/**
- * pint - prints value at the top of the stack
- * @head: head of stack
- * @line_num: number of lines
- * Return: no return for void function
- */
-void pint(stack_t **head, unsigned int line_num)
-{
-	if (head == NULL || *head == NULL)
-	{
-		printf("L%d: can't pint, stack empty", line_num);
-		free_stk(*head);
-		exit(EXIT_FAILURE);
-	}
-	printf("%d\n", (*head)->n);
-}
 
 /**
  * pop - pop value at the top of the stack
@@ -88,7 +50,7 @@ void pop(stack_t **head, unsigned int line_num)
 
 	if (!node)
 	{
-		printf("L%d: can't pop an empty stack", line_num);
+		printf("L%d: can't pop an empty stack\n", line_num);
 		free_stk(*head);
 		exit(EXIT_FAILURE);
 	}

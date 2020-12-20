@@ -12,8 +12,10 @@ int exec(stack_t **head, char *line, unsigned int line_num)
 {
 	instruction_t ops[] = {
 		{"pall", pall}, {"pint", pint}, {"nop", nop},
-		{"swap", swap},
-		{NULL, NULL}
+		{"swap", swap}, {"add", add}, {"pop", pop},
+		{"sub", sub}, {"div", _div}, {"pchar", pchar},
+		{"mul", mul}, {"mod", mod}, {"pstr", pstr}, {"queue", queue},
+		{"rotl", rotl}, {"rotr", rotr}, {"stack", stack}, {NULL, NULL}
 	};
 	int i, push_back;
 	char *first_c;
@@ -46,13 +48,13 @@ int exec(stack_t **head, char *line, unsigned int line_num)
 }
 
 /**
- * get_argument - et arg form math operations
+ * get_arg - et arg form math operations
  * @head: pointer to double l-list
  * @opcode: opcode string
  * @line_num: line number
  * Return: argument
  */
-int get_argument(stack_t **head, char *opcode, unsigned int line_num)
+int get_arg(stack_t **head, char *opcode, unsigned int line_num)
 {
 	stack_t *node;
 	int tmp;

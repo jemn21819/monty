@@ -43,7 +43,6 @@ typedef struct instruction_s
 
 /* external variable */
 
-
 extern char *flag;
 
 void queue(stack_t **head, unsigned int line_num);

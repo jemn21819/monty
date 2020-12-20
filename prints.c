@@ -32,7 +32,7 @@ void pint(stack_t **head, unsigned int line_num)
 {
 	if (head == NULL || *head == NULL)
 	{
-		printf("L%d: can't pint, stack empty", line_num);
+		fprintf(stderr, "L%d: can't pint, stack empty\n", line_num);
 		free_stk(*head);
 		exit(EXIT_FAILURE);
 	}
@@ -51,7 +51,7 @@ void pchar(stack_t **head, unsigned int line_num)
 
 	if (!head || !*head)
 	{
-		printf("L%d: can't pchar, stack empty\n", line_num);
+		fprintf(stderr, "L%d: can't pchar, stack empty\n", line_num);
 		free_stk(*head);
 		exit(EXIT_FAILURE);
 	}
@@ -59,7 +59,7 @@ void pchar(stack_t **head, unsigned int line_num)
 	letter = (*head)->n;
 	if (letter < 0 || letter > 127)
 	{
-		printf("L%d: can't pchar, value out of range\n", line_num);
+		fprintf(stderr, "L%d: can't pchar, value out of range\n", line_num);
 		free_stk(*head);
 		exit(EXIT_FAILURE);
 	}
@@ -78,14 +78,13 @@ void pstr(stack_t **head, unsigned int line_num)
 	stack_t *h;
 	(void) line_num;
 
-	if (head != NULL)
+	h = *head;
+	while (h)
 	{
-		h = *head;
-		while (h != NULL && h->n > 0 && h->n < 127)
-		{
+		if (h->n > 32 && h->n < 127)
 			printf("%c", h->n);
+		else
 			h = h->next;
-		}
 	}
-	putchar('\n');
+	printf("\n");
 }

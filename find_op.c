@@ -39,7 +39,7 @@ int exec(stack_t **head, char *line, unsigned int line_num)
 			return (0);
 		}
 	}
-	printf("L%d: unknown instruction ", line_num);
+	fprintf(stderr, "L%d: unknown instruction ", line_num);
 	while (*first_c && (*first_c != ' ' && *first_c != '\t'))
 		putchar(*first_c++);
 	putchar('\n');
@@ -63,7 +63,7 @@ int get_arg(stack_t **head, char *opcode, unsigned int line_num)
 
 	if (node == NULL)
 	{
-		printf("L%d: can't %s, stack too short\n", line_num, opcode);
+		fprintf(stderr, "L%d: can't %s, stack too short\n", line_num, opcode);
 		free_stk(*head);
 		exit(EXIT_FAILURE);
 	}

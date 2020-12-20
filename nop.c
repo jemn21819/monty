@@ -6,10 +6,9 @@
  * @line_num: line number
  */
 
-void nop(stack_t **head, unsigned int line_num)
+void nop(stack_t **head, __attribute__((unused))unsigned int line_num)
 {
 	(void)head;
-	(void)line_num;
 }
 
 /**

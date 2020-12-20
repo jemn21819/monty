@@ -50,7 +50,7 @@ void _div(stack_t **head, unsigned int line_num)
 
 	if (num1 == 0)
 	{
-		printf("L%d: division by zero\n", line_num);
+		fprintf(stderr, "L%d: division by zero\n", line_num);
 		free_stk(*head);
 		exit(EXIT_FAILURE);
 	}
@@ -90,7 +90,7 @@ void mod(stack_t **head, unsigned int line_num)
 
 	if (num1 == 0)
 	{
-		printf("L%d: division by zero\n", line_num);
+		fprintf(stderr, "L%d: division by zero\n", line_num);
 		free_stk(*head);
 		exit(EXIT_FAILURE);
 	}

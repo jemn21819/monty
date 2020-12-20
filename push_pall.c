@@ -16,7 +16,7 @@ int push(stack_t **head, char *line, unsigned int line_num)
 	first_n = searchNumber(line);
 	if (!first_n)
 	{
-		printf("L%d: usage: push integer\n", line_num);
+		fprintf(stderr, "L%d: usage: push integer\n", line_num);
 		free(line);
 		exit(EXIT_FAILURE);
 	};
@@ -29,7 +29,7 @@ int push(stack_t **head, char *line, unsigned int line_num)
 	free(line);
 	if (!node)
 	{
-		puts("Error: malloc failed");
+		fprintf(stderr, "Error: malloc failed\n");
 		exit(EXIT_FAILURE);
 	}
 	return (0);
@@ -50,7 +50,7 @@ void pop(stack_t **head, unsigned int line_num)
 
 	if (!node)
 	{
-		printf("L%d: can't pop an empty stack\n", line_num);
+		fprintf(stderr, "L%d: can't pop an empty stack\n", line_num);
 		free_stk(*head);
 		exit(EXIT_FAILURE);
 	}

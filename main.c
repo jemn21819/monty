@@ -20,13 +20,13 @@ int main(int ac, char **av)
 
 	if (ac != 2)
 	{
-		printf("USAGE: %s file\n", av[0]), exit(EXIT_FAILURE);
+		fprintf(stderr, "USAGE: %s file\n", av[0]), exit(EXIT_FAILURE);
 	}
 	head = NULL;
 	fp = open(av[1], O_RDONLY);
 	if (fp == -1)
 	{
-		printf("Error: Can't open file %s\n", av[1]), exit(EXIT_FAILURE);
+		fprintf(stderr, "Error: Can't open file %s\n", av[1]), exit(EXIT_FAILURE);
 	}
 	line_num = 0;
 	do {

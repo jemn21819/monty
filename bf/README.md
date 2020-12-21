@@ -13,8 +13,8 @@ BF language
 # Commands:
 There are only 8 commands for this language:
 '''brainf*ck
-- < = move memory pointer one block to the left
-- > = Move memory pointer one block to the right
+- <<> = move memory pointer one block to the left
+- <>> = Move memory pointer one block to the right
 - + = increase value stored in the current memory block
 - - = decrease value stored in the current memory block
 - [ = in C equals to while(mem_block != 0)

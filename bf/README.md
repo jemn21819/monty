@@ -12,14 +12,14 @@ BF language
 
 # Commands:
 There are only 8 commands for this language:
-'''brainf*ck
+```brainfuck
 - < = move memory pointer one block to the left
 - > = Move memory pointer one block to the right
-- (+) = increase value stored in the current memory block
-- (-) = decrease value stored in the current memory block
+- + = increase value stored in the current memory block
+- - = decrease value stored in the current memory block
 - [ = in C equals to while(mem_block != 0)
 - ] = if the current memory block is not zero, return to ]
 - , = in C equals to getchar() to read one char from stdin
 - . = in C equals to putchar() to print one char to stdout
-'''
+```
 
